@@ -1,31 +1,67 @@
-Automatic Wiping System for Helmets
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
 
-This project focuses on designing and developing an automated system to enhance the safety and convenience of helmet users. The system utilizes advanced sensors and motorized mechanisms to detect and remove dirt, water, or other obstructions from the helmet's visor, ensuring clear visibility for the user.
+int rs=2;
+int m1=3;
+int m2=4;
+LiquidCrystal_I2C lcd(0x27,16,2);
 
-Key Features:
+void setup() {
+  // put your setup code here, to run once:
+pinMode(rs,INPUT);
+pinMode(m1,OUTPUT);
+pinMode(m2,OUTPUT);
 
-- Advanced sensor technology for detecting visor obstructions
-- Motorized wiping mechanism for efficient cleaning
-- Real-time feedback system for optimal performance
-- Durable and weather-resistant design for various environmental conditions
+  lcd.init();                      // initialize the lcd 
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0,0);
+  lcd.print("Smart Car Window");
+  lcd.setCursor(0,1);
+  lcd.print("Viper via Sensor");
+  delay(1500);  
+}
+void sweeper(){
+digitalWrite(m1,1);
+digitalWrite(m2,0);
+delay(3750);
+digitalWrite(m1,0);
+digitalWrite(m2,0);
+delay(100);
+digitalWrite(m1,0);
+digitalWrite(m2,1);
+delay(3750);
+digitalWrite(m1,0);
+digitalWrite(m2,0);
+delay(100);
 
-Technologies Used:
+}
+void loop() {
+  // put your main code here, to run repeatedly:
+if(digitalRead(rs)==0){
+  lcd.init();                      // initialize the lcd 
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0,0);
+  lcd.print("Rain Detected");
+  lcd.setCursor(0,1);
+  lcd.print("Viaper on");
 
-- Microcontrollers (e.g., Arduino, Raspberry Pi)
-- Programming languages (e.g., C++, Python)
-- Sensors (e.g., optical, ultrasonic)
-- Motor control systems
+sweeper();
+}
+else{
+  lcd.init();                      // initialize the lcd 
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0,0);
+  lcd.print("Waiting for rain");
+  lcd.setCursor(0,1);
+  lcd.print("Viaper off");
+delay(1000);
+}
 
-Repository Contents:
+}
 
-- Code for the system's firmware and software
-- Schematics and design files for the hardware
-- Documentation for setup, usage, and troubleshooting
 
-Goals:
-
-- Improve safety for helmet users in various industries (e.g., construction, sports, military)
-- Enhance user experience through automated maintenance
-- Develop a reliable and efficient system for real-world applications
 
 
